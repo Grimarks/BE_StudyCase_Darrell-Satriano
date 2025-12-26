@@ -31,7 +31,7 @@ var users []User
 var events []Event
 var transactions []Transaction
 
-// ===== USER =====
+// user
 func createUser(w http.ResponseWriter, r *http.Request) {
 	var user User
 	json.NewDecoder(r.Body).Decode(&user)
@@ -40,7 +40,7 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(user)
 }
 
-// ===== EVENT =====
+// event
 func createEvent(w http.ResponseWriter, r *http.Request) {
 	var event Event
 	json.NewDecoder(r.Body).Decode(&event)
@@ -50,7 +50,7 @@ func createEvent(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(event)
 }
 
-// ===== TRANSACTION =====
+// transaction
 func createTransaction(w http.ResponseWriter, r *http.Request) {
 	var trx Transaction
 	json.NewDecoder(r.Body).Decode(&trx)
