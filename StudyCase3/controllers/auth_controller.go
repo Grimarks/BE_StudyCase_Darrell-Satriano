@@ -3,13 +3,11 @@ package controllers
 import (
 	"StudyCase3/config"
 	"StudyCase3/models"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
-	_ "github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
-	_ "golang.org/x/crypto/bcrypt"
-	"time"
-	_ "time"
 )
 
 func Login(c *fiber.Ctx) error {
@@ -33,7 +31,6 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
-	// 🔐 bcrypt check (INI KUNCINYA)
 	err := bcrypt.CompareHashAndPassword(
 		[]byte(user.Password),
 		[]byte(input.Password),
@@ -44,14 +41,14 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
-	// 🎟️ buat token
+	// buat token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id":   user.ID,
 		"role": user.Role,
 		"exp":  time.Now().Add(time.Hour * 24).Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte("SECRET123"))
+	tokenString, err := token.SignedString(config.JwtSecret)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
 			"error": "Failed to generate token",

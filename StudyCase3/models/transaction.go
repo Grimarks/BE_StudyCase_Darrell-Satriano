@@ -1,8 +1,10 @@
 package models
 
+import "gorm.io/gorm"
+
 type Transaction struct {
-	ID       uint `gorm:"primaryKey"`
-	UserID   uint
-	EventID  uint
-	Quantity int
+	gorm.Model
+	UserID   uint `json:"user_id"`
+	EventID  uint `json:"event_id"`
+	Quantity int  `json:"quantity"`
 }

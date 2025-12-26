@@ -4,25 +4,28 @@ import "fmt"
 
 func main() {
 	input := 0
-	fmt.Scanln(&input)
+	fmt.Scanln(&input) //Kita input dulu int mau berapa kali input gedegok
 
-	gedegok := []string{}
+	gedegok := []string{} //Simpan gedegok pakai list biar mudah
 
+	//Loop input gedegok
 	for i := 0; i < input; i++ {
 		var s string
 		fmt.Scanln(&s)
 		gedegok = append(gedegok, s)
 	}
 
+	// loop pengecekan
 	for i := 0; i < input; i++ {
 		g := 0
 		c := 0
 		valid := true
+		//ada g dan c di atas, jadi nanti di data dan dibandingin nanti
 
-		s := gedegok[i]
+		s := gedegok[i] //untuk cek per huruf
 
 		for j := 0; j < len(s); j++ {
-			// hitung G dan C nya
+			// hitung g dan c nya
 			if s[j] == 'G' {
 				g++
 			}
@@ -41,7 +44,7 @@ func main() {
 			}
 		}
 
-		// cek jumlah G dan C
+		// cek jumlah g dan c
 		if g != c {
 			valid = false
 		}

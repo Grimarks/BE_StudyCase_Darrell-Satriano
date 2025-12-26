@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: Ticket Event API
+  description: Backend API for Online Event Ticket Platform
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /register:
+    post:
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+      responses:
+        "200":
+          description: User registered successfully
+
+  /login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: JWT token returned
+
+  /events:
+    get:
+      summary: Get all events
+      responses:
+        "200":
+          description: List of events
+
+    post:
+      summary: Create event (Admin only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                capacity:
+                  type: integer
+      responses:
+        "200":
+          description: Event created
+
+  /transactions:
+    post:
+      summary: Buy ticket
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_id:
+                  type: integer
+                quantity:
+                  type: integer
+      responses:
+        "200":
+          description: Transaction success
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
